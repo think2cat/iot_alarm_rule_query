@@ -1,0 +1,221 @@
+{
+    "code": 0,
+    "message": "成功",
+    "data": {
+        "list": [
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "30e83184dac3489ca38309448d1fe60a",
+                "name": "倒计时剩余时间",
+                "field": "countdown_left",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "FLOAT",
+                "fieldType": 0,
+                "min": 0.0,
+                "max": 360.0
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "356cdfb80bf647ca9c724b4894745391",
+                "name": "设置温度",
+                "field": "temp_set",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "FLOAT",
+                "fieldType": 1,
+                "min": 0.0,
+                "max": 50.0
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "36d13a64e79142e6a4000c1809c284b4",
+                "name": "换气模式",
+                "field": "mode_ventilation",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "3e1ca64af4cd4daa8368a39dc1f7f587",
+                "name": "设置湿度",
+                "field": "humidity_set",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "FLOAT",
+                "fieldType": 1,
+                "min": 0.0,
+                "max": 100.0
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "40d216e565504d2992621dfa01d6a74c",
+                "name": "灯光",
+                "field": "light",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "4cb0de27cd5f458f97e6f202bd802371",
+                "name": "ECO模式",
+                "field": "mode_ECO",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "4d5c4c20cb9a4a369fc702f9ef7b79f0",
+                "name": "工作状态",
+                "field": "status",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "ENUM",
+                "fieldType": 0,
+                "expression": "1;2;3"
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "60440ef3037343b4bde47947a1e1922a",
+                "name": "蜂鸣",
+                "field": "beep",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "71d9d039f2604ca19cffad47ad8c7dd4",
+                "name": "工作模式",
+                "field": "mode",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "ENUM",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "7561b46220304ac29af6d877518c2e76",
+                "name": "干燥模式",
+                "field": "mode_dry",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "7ae7a453220342b5ada538e9046ed5ce",
+                "name": "童锁",
+                "field": "lock",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "84ac5ea177254652a3f440a7fe79b99c",
+                "name": "当前温度",
+                "field": "temp_current",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "FLOAT",
+                "fieldType": 0,
+                "min": -20.0,
+                "max": 100.0
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "8759cad305e040428c27ba7db1423d10",
+                "name": "当前湿度",
+                "field": "humidity_current",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "FLOAT",
+                "fieldType": 1,
+                "min": 0.0,
+                "max": 100.0
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "9478fe0d7085453e8dc441cf779662b8",
+                "name": "自动模式",
+                "field": "mode_auto",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "9b315e4631554db2ac8c0cac4c9a4553",
+                "name": "温标",
+                "field": "C_F",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "ENUM",
+                "fieldType": 1,
+                "expression": "C;F"
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "b42d371423bd45e999d5e9279849eca2",
+                "name": "故障告警",
+                "field": "Fault",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "ENUM",
+                "fieldType": 0,
+                "expression": "sensor;temp"
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "bdee4933a843422cb200f398f0505171",
+                "name": "开关",
+                "field": "Power",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "bf9a75a11d784b6c8beabba62b2c2c9c",
+                "name": "倒计时",
+                "field": "Countdown",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "ENUM",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "d0c3d1ba2e10488191093e14d1691e72",
+                "name": "风摆",
+                "field": "windshake",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "ENUM",
+                "fieldType": 1,
+                "expression": "horizontal;vertical"
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "d3f99c3d00de4abc895e2be5352a35ff",
+                "name": "风速",
+                "field": "windspeed",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "ENUM",
+                "fieldType": 1,
+                "expression": "1;2;3;4;5;6"
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "f600dbed249c42df8988e81f735af9f6",
+                "name": "负离子",
+                "field": "anion",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            },
+            {
+                "createTime": "2018-08-25 14:41:39",
+                "id": "f69d238f3f3547979314089d3ecbefed",
+                "name": "辅热",
+                "field": "heat",
+                "tProductId": "cdf435c8dae7444296a87e890bf08dd3",
+                "dataType": "BOOL",
+                "fieldType": 1
+            }
+        ]
+    }
+}

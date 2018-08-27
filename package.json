@@ -1,12 +1,23 @@
 {
   "name": "iot_alarm_rule_query",
   "version": "0.1.0",
+  "author": {
+    "name": "Gavin Guo"
+  },
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "main": "src/components/alarmRuleAdd.vue",
+  "keywords": [
+    "iot",
+    "alarm",
+    "select",
+    "vue",
+    "html"
+  ],
   "dependencies": {
     "bootstrap": "^4.1.1",
     "jquery": "^3.3.1",
