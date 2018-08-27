@@ -1,19 +1,15 @@
 <template>
-  <div>
-
+  <div class="rule">
       <ul>
-        <li v-for="(itemR,index) in item.rules">
+        <li v-for="(itemR,index) in item.rules" :key="itemR[0].id">
           <div class="row">
             <div>{{index ? "并且" : "筛选"}}</div>
             <div class="form-inline">
               <select class="form-control" v-model="itemR[0].id" @change="onRuleFieldChange(itemR[0])">
-                  <option v-for="obj in compFieldItems" :value="obj.id">{{obj.field}}</option>
-                </select>
-              <select class="form-control" v-if="item.alarmStatType==1" v-model="itemR[0].func">
-                  <option v-for="(key,value) in opItem.func" :value="value">{{key}}</option>
+                  <option v-for="obj in compFieldItems" :value="obj.id" :key="obj.id">{{obj.field}}</option>
                 </select>
               <select class="form-control" v-model="itemR[0].opt">
-                  <option v-for="(key,value) in getOptItemByType(itemR[0].dataType)" :value="value">{{key}}</option>
+                  <option v-for="(key,value) in getOptItemByType(itemR[0].dataType)" :value="value" :key="value">{{key}}</option>
                 </select>
               <!--number-->
               <input type="text" class="form-control" v-if="'between' != itemR[0].opt && 'STRING' == itemR[0].dataType" v-model="itemR[0].value" />
@@ -23,9 +19,9 @@
               <input type="number" class="form-control" v-if="itemR[0].opt == 'between'" v-model="itemR[0].maxValue" />
               <!--bool & enum -->
               <select class="form-control" v-model="itemR[0].value" v-if="'BOOL' == itemR[0].dataType || 'ENUM' == itemR[0].dataType">
-                  <option v-for="itemEnum in getEnumItemValueByFieldId(itemR[0].id)" :value="itemEnum">{{itemEnum}}</option>
+                  <option v-for="itemEnum in getEnumItemValueByFieldId(itemR[0].id)" :value="itemEnum" :key="itemEnum">{{itemEnum}}</option>
                 </select>
-              <div class="pull-right" v-if="'info' != editType">
+              <div class="pull-right">
                 <button class="btn btn-default" @click="addAnd(index)">并且</button>
                 <button class="btn btn-default" @click="addOr(index)">或者</button>
                 <button class="btn btn-danger" @click="delOr(index,0)" v-if="item.rules.length>1 || item.rules[0].length>1">删除</button>
@@ -33,18 +29,15 @@
             </div>
           </div>
           <ul v-if="itemR.length > 1 || index < item.rules.length -1">
-            <li v-for="(itemRO,indexJ) in itemR" v-if="indexJ > 0">
+            <li v-for="(itemRO,indexJ) in itemR" v-if="indexJ > 0" :key="itemRO.id">
               <div class="row">
                 <div>或者</div>
                 <div class="form-inline">
                   <select class="form-control" v-model="itemRO.id" @change="onRuleFieldChange(itemRO)">
-                      <option v-for="obj in compFieldItems" :value="obj.id">{{obj.field}}</option>
-                    </select>
-                  <select class="form-control" v-if="item.alarmStatType==1" v-model="itemRO.func">
-                      <option v-for="(key,value) in opItem.func" :value="value">{{key}}</option>
+                      <option v-for="obj in compFieldItems" :value="obj.id" :key="obj.id">{{obj.field}}</option>
                     </select>
                   <select class="form-control" v-model="itemRO.opt">
-                      <option v-for="(key,value) in getOptItemByType(itemRO.dataType)" :value="value">{{key}}</option>
+                      <option v-for="(key,value) in getOptItemByType(itemRO.dataType)" :value="value" :key="value">{{key}}</option>
                     </select>
                   <!--number-->
                 <input type="text" class="form-control" v-if="'between' != itemRO.opt && 'STRING' == itemRO.dataType" v-model="itemRO.value" />
@@ -54,9 +47,9 @@
                   <input type="number" class="form-control" v-if="itemRO.opt == 'between'" v-model="itemRO.maxValue" />
                   <!--bool & enum -->
                   <select class="form-control" v-model="itemRO.value" v-if="'BOOL' == itemRO.dataType || 'ENUM' == itemRO.dataType">
-                  <option v-for="itemEnum in getEnumItemValueByFieldId(itemRO.id)" :value="itemEnum">{{itemEnum}}</option>
+                  <option v-for="itemEnum in getEnumItemValueByFieldId(itemRO.id)" :value="itemEnum" :key="itemEnum">{{itemEnum}}</option>
                 </select>
-                  <div class="pull-right" v-if="'info' != editType">
+                  <div class="pull-right">
                     <button class="btn btn-danger" @click="delOr(index,indexJ)">删除</button>
                   </div>
                 </div>
@@ -69,31 +62,13 @@
 </template>
 
 <script>
-//  import api from "@/api";
-//import select2 from "../../../node_modules/select2/dist/js/select2";
+//  import api from '@/api'
 import $ from "jquery";
+import requireField from "./field.json";
 export default {
   data() {
     return {
-      activeTab: 0,
-      editType: "",
-      menuItems: ["设置告警规则", "通知方式", "应用范围"],
-      alarmLevelItems: [], //TODO
       opItem: {
-        statPeriod: [1, 3, 5, 10, 20, 30, 60],
-        repeatPeriod: [5, 10, 15, 30, 60, 120],
-        repeatPeriodUnit: ["分钟内", "小时内", "累计"],
-        repeatTime: [1, 2, 3, 4, 5, 10],
-        alarmInterval: {
-          "0": "不静默",
-          "1": "1分钟",
-          "5": "5分钟",
-          "10": "10分钟",
-          "15": "15分钟",
-          "30": "30分钟",
-          "60": "60分钟",
-          "999": "永久静默"
-        },
         func: {
           avg: "平均值",
           min: "最小值",
@@ -125,9 +100,7 @@ export default {
         }
       },
       fieldItems: [],
-      contactGroupItems: [],
       btnDom: [],
-      tabMenu: [],
       contentDom: [],
       emptyItemRules: {
         id: "",
@@ -140,115 +113,28 @@ export default {
         minValue: ""
       },
       item: {
-        alarmDevices: [
-          {
-            deviceGroupId: "",
-            scope: 0
-          }
-        ],
-        alarmReceivers: [
-          {
-            alarmInterval: 0,
-            email: 0,
-            ems: 0,
-            userGroupId: ""
-          }
-        ],
-        tProductId: "",
-        name: "",
-        description: "",
-        alarmLevel: 0,
-        alarmStatType: 0,
-        statPeriod: 1,
-        repeatPeriod: 10,
-        repeatPeriodUnit: 0,
-        repeatTime: 3,
-        status: 0,
         rules: []
       }
     };
   },
   mounted() {
-    /*
-      this.tabMenu = $(this.$el).find("ul.nav > li");
-      this.btnDom = $(this.$el).find(".box-footer button:gt(0)");
-      this.switchTab(this.activeTab);
-      this.editType = "add";
-      */
-    //this.contentDom = $(this.$el).find(".box-body > div").children();
-    //TODO
-    /*
-      let dom = $(this.$el).find("select[multiple]");
-      let dom2 = dom.select2();
-      dom.on("select2:unselect", v => {
-        //更新值
-      });
-      dom.on("select2:select", v => {
-        //更新值
-      });
-      */
+    setTimeout(() => {
+      this.fieldItems = requireField.data.list;
+      this.item.rules.push([$.extend(true, {}, this.emptyItemRules)]);
+    }, 100);
   },
   computed: {
     compFieldItems() {
-      if (1 == this.item.alarmStatType) {
-        return this.fieldItems.filter(v => {
-          return "INT" == v.dataType || "FLOAT" == v.dataType;
-        });
-      } else {
+      // if (1 == this.item.alarmStatType) {
+      //   return this.fieldItems.filter(v => {
+      //     return "INT" == v.dataType || "FLOAT" == v.dataType;
+      //   });
+      // } else {
         return this.fieldItems;
-      }
+      // }
     }
   },
   methods: {
-    switchTab(val) {
-      //标签页切换
-      if (
-        "info" != this.editType &&
-        val > this.activeTab &&
-        !this.checkData()
-      ) {
-        return;
-      }
-      this.activeTab = val;
-      this.tabMenu
-        .removeClass("active")
-        .eq(this.activeTab)
-        .addClass("active");
-      this.checkEditType();
-      /*
-        $(this.$el)
-          .find("select[multiple='']")
-          .select2();
-          */
-    },
-    getFieldList(callbcak) {
-      /*
-        api.getProductfield(this.item.tProductId, response => {
-          if (0 == response["code"] && response["data"]) {
-            this.fieldItems = response["data"];
-            if (this.fieldItems.length && "info" != this.editType) {
-              //如果是新增和编辑
-              this.emptyItemRules = this.field2Rule(this.fieldItems[0]);
-              if ("add" == this.editType) {
-                //如果是新增
-                this.item.rules.push([$.extend(true, {}, this.emptyItemRules)]);
-              }
-            }
-            //console.log("this.fieldItems", this.fieldItems);
-          }
-          callbcak && callbcak(response);
-        });
-        */
-    },
-    checkEditType() {
-      if ("info" == this.editType) {
-        //查看规则则禁用所有表单
-        setTimeout(() => {
-          this.contentDom = $(this.$el).find(".box-body > div > div");
-          this.contentDom.find(":input").attr("disabled", "");
-        }, 10);
-      }
-    },
     getOptItemByType(val) {
       //传入dataType返回对应操作符
       if ("BOOL" == val || "ENUM" == val) {
@@ -294,11 +180,12 @@ export default {
       return ret;
     },
     onRuleFieldChange(item) {
-      //数据点下拉框改版时触发
-      //console.log("onRuleFieldChange", item.name);
+      //数据点下拉框改变时触发
+      // console.log("onRuleFieldChange", item);
       for (let i = 0; i < this.compFieldItems.length; i++) {
         if (item.id == this.compFieldItems[i].id) {
           item = $.extend(true, item, this.field2Rule(this.compFieldItems[i]));
+          // console.log('onRuleFieldChange.find', item)
           return;
         }
       }
@@ -379,27 +266,6 @@ export default {
         }
         */
       return true;
-    },
-    //提交数据
-    submit() {
-      /*
-        if (1 != this.publishState) {
-          return;
-        }
-        if (!this.checkData()) {
-          this.activeTab = 0;
-          return;
-        }
-        */
-      var cb = response => {
-        if (0 == response["code"]) {
-          //提交成功
-          // TODO "成功";
-        } else {
-          //提交失败
-        }
-      };
-      //console.log("sumbit", this.item.params);
     }
   }
 };
@@ -407,136 +273,76 @@ export default {
 
 <style scoped lang="less">
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-.box-body {
-  @icon_height: 50px;
-  @icon_bg_color: #669df0;
-  > ul.nav {
-    //顶部1-2-3
-    border-bottom: none;
-    margin: 0;
-    width: 100%;
-    display: flex;
+@icon_height: 50px;
+@icon_bg_color: #669df0;
+.rule {
+  width: 800px;
+  //规则
+  ul {
+    list-style: none;
+    padding: 0;
     > li {
-      text-align: center;
-      flex-grow: 1;
-      height: 57px;
-      padding: 0;
-      margin: 0;
-      border-bottom: 3px solid #f7f7f7;
-      text-align: center;
-      > div {
-        width: 100%;
-        position: absolute;
-        color: #ccc;
-        font-size: 22px;
-      }
-      &.active {
-        border-bottom: 3px solid @icon_bg_color;
+      .row {
+        background-color: #f7f7f7;
+        display: flex;
+        padding: 0;
+        margin: 0;
+        > div {
+          display: inline-block;
+          padding: 3px;
+        }
         > div:nth-child(1) {
-          > span {
-            background-color: @icon_bg_color;
-            color: #fff;
-          }
+          flex-grow: 0;
+          min-width: 40px;
+          background-color: @icon_bg_color;
+          text-align: center;
+          color: #fff;
         }
         > div:nth-child(2) {
-          color: @icon_bg_color;
+          flex-grow: 1;
+          padding-left: 2em;
         }
       }
-      > div:nth-child(1) {
-        top: 50%;
-        > span {
-          line-height: @icon_height;
-          height: @icon_height;
-          width: @icon_height;
-          border-radius: 50%;
-          background-color: #f7f7f7;
-          font-size: 30px;
-          display: inline-block;
-        }
-      }
-      > div:nth-child(2) {
-        line-height: 15px;
-      }
-    }
-  }
-  > div {
-    //表单区
-    margin: 50px 40px 20px 40px;
-    min-height: 398px;
-    > div {
-      //display: none;
-      .row {
-        padding: 3px;
-        margin-left: 0;
-        margin-right: 0;
-      }
-    }
-    > .rule {
-      //规则
-      ul {
+      > ul {
+        //子规则
+        margin-left: 20px;
+        padding: 0 0 0.5em 20px;
         list-style: none;
-        padding: 0;
+        padding-bottom: 10px;
+        border-left: 5px solid @icon_bg_color;
         > li {
-          .row {
-            background-color: #f7f7f7;
-            display: flex;
-            padding: 0;
-            margin: 0;
-            > div {
-              display: inline-block;
-              padding: 3px;
-            }
-            > div:nth-child(1) {
-              flex-grow: 0;
-              min-width: 40px;
-              background-color: @icon_bg_color;
-              text-align: center;
-              color: #fff;
-            }
-            > div:nth-child(2) {
-              flex-grow: 1;
-              padding-left: 2em;
-            }
+          padding: 1px 0 1px 0;
+          > .row > div:nth-child(1) {
+            background-color: #669df082;
           }
-          > ul {
-            //子规则
-            margin-left: 20px;
-            padding: 0 0 0.5em 20px;
-            list-style: none;
-            padding-bottom: 10px;
-            border-left: 5px solid @icon_bg_color;
-            > li {
-              padding: 1px 0 1px 0;
-              > .row > div:nth-child(1) {
-                background-color: #669df082;
-              }
-            }
-          }
-        }
-        input[type="text"],
-        input[type="number"] {
-          width: 5em;
         }
       }
     }
-    > .notice {
-      //通知方式
-      ul {
-        list-style: none;
-      }
+    input[type="text"],
+    input[type="number"] {
+      width: 5em;
     }
   }
-  select.form-control,
-  input.form-control {
-    height: 30px;
-    padding: 3px 6px;
-  }
-  input.form-control[type="checkbox"]:focus {
-    box-shadow: none;
-  }
-
-  //select[multiple] + span.select2 {
-  //  border: 1px solid red;
-  //}
 }
+select.form-control,
+input.form-control {
+  height: 30px;
+  padding: 3px 6px;
+}
+input.form-control[type="checkbox"]:focus {
+  box-shadow: none;
+}
+.form-inline{
+  text-align: left;
+}
+.pull-right{
+  float:right;
+  button {
+    margin: auto 1em;
+  }
+}
+
+//select[multiple] + span.select2 {
+//  border: 1px solid red;
+//}
 </style>
